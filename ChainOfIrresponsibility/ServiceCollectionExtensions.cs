@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ChainOfIrresponsibility.Abstractions;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ChainOfIrresponsibility
 {
@@ -6,7 +7,10 @@ namespace ChainOfIrresponsibility
     {
         public static Configuration<TRequest> IncludeChain<TRequest>(this IServiceCollection services)
         {
-            return null;
+            IEnumerable<ISuccessor<TRequest>> successors = new List<ISuccessor<TRequest>>();
+            SuccessorRegistry<TRequest> registry = new ();
+            services.AddSingleton<IChain<TRequest>>(s => new Chain<TRequest>(successors));
+            return new Configuration<TRequest>(services, registry);
         }
     }
 }

@@ -1,11 +1,14 @@
 ﻿using ChainOfIrresponsibility;
+using ChainOfIrresponsibility.Abstractions;
 using Demo.Chain;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Demo
 {
     public class Program
     {
+        private static readonly IServiceScopeFactory _scopeFactory;
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -15,10 +18,12 @@ namespace Demo
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
-                    services.IncludeChain<RandomRequest>()
-                            .WithHandler<RandomHandler>()
-                            .WithHandler<AnotherRandomHandler>()
-                            .WithHandler<YetAnotherRandomHandler>();
+                    services
+                            .AddHostedService<Worker>()
+                            .IncludeChain<RandomRequest>()
+                            .AddSuccessor<RandomHandler>()
+                            .AddSuccessor<AnotherRandomHandler>()
+                            .AddSuccessor<YetAnotherRandomHandler>();
                 });
     }
 }
