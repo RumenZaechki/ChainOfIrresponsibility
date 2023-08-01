@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "Demo\Demo.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChainOfIrresponsibility", "ChainOfIrresponsibility\ChainOfIrresponsibility.csproj", "{E2C16FDF-7EA4-4B46-974D-54E86CE9103D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WhatShouldBeAbstracted", "WhatShouldBeAbstracted\WhatShouldBeAbstracted.csproj", "{69F0982A-9A56-40BC-8835-0486FC2B7541}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{E2C16FDF-7EA4-4B46-974D-54E86CE9103D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2C16FDF-7EA4-4B46-974D-54E86CE9103D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2C16FDF-7EA4-4B46-974D-54E86CE9103D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69F0982A-9A56-40BC-8835-0486FC2B7541}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69F0982A-9A56-40BC-8835-0486FC2B7541}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69F0982A-9A56-40BC-8835-0486FC2B7541}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69F0982A-9A56-40BC-8835-0486FC2B7541}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
