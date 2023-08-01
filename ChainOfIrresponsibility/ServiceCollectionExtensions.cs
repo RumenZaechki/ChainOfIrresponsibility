@@ -7,9 +7,8 @@ namespace ChainOfIrresponsibility
     {
         public static Configuration<TRequest> IncludeChain<TRequest>(this IServiceCollection services)
         {
-            IEnumerable<ISuccessor<TRequest>> successors = new List<ISuccessor<TRequest>>();
             SuccessorRegistry<TRequest> registry = new ();
-            services.AddSingleton<IChain<TRequest>>(s => new Chain<TRequest>(successors));
+            services.AddSingleton<IChain<TRequest>>(s => new Chain<TRequest>(s, registry));
             return new Configuration<TRequest>(services, registry);
         }
     }

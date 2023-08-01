@@ -1,8 +1,9 @@
 ﻿using ChainOfIrresponsibility.Abstractions;
+using Demo.Chain;
 using Microsoft.Extensions.Hosting;
 using System.Xml;
 
-namespace Demo.Chain
+namespace Demo
 {
     public class Worker : BackgroundService
     {
