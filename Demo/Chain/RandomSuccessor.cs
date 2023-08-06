@@ -1,10 +1,10 @@
 ﻿using ChainOfIrresponsibility.Abstractions;
 
-namespace Demo.Chain2
+namespace Demo.Chain
 {
-    public class RandomSuccessor : ISuccessor<AnotherRandomRequest>
+    public class RandomSuccessor : ISuccessor<RandomRequest>
     {
-        public async Task HandleAsync(AnotherRandomRequest request, CancellationToken token = default)
+        public async Task HandleAsync(RandomRequest request, CancellationToken token = default)
         {
             Guid id = Guid.NewGuid();
             await Console.Out.WriteLineAsync($"RandomSuccessor - {id}");
