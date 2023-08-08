@@ -10,3 +10,5 @@
 /WhatShouldBeAbstracted
 /ChainOfIrresponsibility/bin/Debug/net7.0
 /Demo/bin/Debug/net7.0
+/ChainOfIrresponsibility.Tests/bin/Debug/net7.0
+/ChainOfIrresponsibility.Tests/obj
