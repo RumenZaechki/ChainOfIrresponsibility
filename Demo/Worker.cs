@@ -1,4 +1,5 @@
-﻿using ChainOfIrresponsibility.Abstractions;
+﻿using ChainOfIrresponsibility;
+using ChainOfIrresponsibility.Abstractions;
 using Demo.Chain;
 using Microsoft.Extensions.Hosting;
 
@@ -13,7 +14,12 @@ namespace Demo
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            await _anotherChain.RunAsync(new RandomRequest());
+            RandomRequest request = new RandomRequest();
+            //ChainBuilder<RandomRequest> builder = ChainBuilder.For<RandomRequest>()
+            //                                                  .AddSuccessor<RandomSuccessor>();
+            //var chain = builder.BuildChain();
+            //await chain.RunAsync(request, stoppingToken);
+            await _anotherChain.RunAsync(request);
         }
     }
 }
