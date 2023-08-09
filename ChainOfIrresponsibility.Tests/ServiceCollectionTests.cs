@@ -24,6 +24,9 @@ namespace ChainOfIrresponsibility.Tests
                     .HaveCount(2)
                     .And
                     .OnlyContain(d => d.Lifetime == ServiceLifetime.Transient);
+
+            services.Should().ContainSingle(d => d.ImplementationType == typeof(TestSuccessor));
+            services.Should().ContainSingle(d => d.ImplementationType == typeof(AnotherTestSuccessor));
         }
     }
 }
