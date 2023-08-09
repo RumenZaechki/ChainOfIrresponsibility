@@ -4,6 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <Title>Chain of Irresponsibility</Title>
+    <Authors>Random Dude</Authors>
+    <Description>A simple library which implements the Chain of Responsibility patttern.</Description>
+    <Copyright>MIT</Copyright>
+    <RepositoryUrl>https://github.com/RumenZaechki/ChainOfIrresponsibility</RepositoryUrl>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
