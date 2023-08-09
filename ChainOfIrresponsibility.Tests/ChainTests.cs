@@ -1,3 +1,4 @@
+using ChainOfIrresponsibility.Abstractions;
 using ChainOfIrresponsibility.Tests.TestChain;
 using FluentAssertions;
 
@@ -9,10 +10,10 @@ namespace ChainOfIrresponsibility.Tests
         [Fact]
         public async void Chain_Calls_Successors_In_Correct_Order()
         {
-            ChainBuilder<TestRequest> builder = ChainBuilder.For<TestRequest>()
-                                                            .AddSuccessor<TestSuccessor>()
-                                                            .AddSuccessor<AnotherTestSuccessor>();
-            var chain = builder.BuildChain();
+            IChain<TestRequest> chain = ChainBuilder.For<TestRequest>()
+                                                    .AddSuccessor<TestSuccessor>()
+                                                    .AddSuccessor<AnotherTestSuccessor>()
+                                                    .BuildChain();
 
             await chain.RunAsync(_request);
 
