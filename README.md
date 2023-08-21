@@ -1,3 +1,3 @@
 # ChainOfIrresponsibility
 
-A simple library written in .NET 7 which implements the Chain of Responsibility pattern.
+A simple library written in .NET 7 which helps in implementing the Chain of Responsibility pattern.
