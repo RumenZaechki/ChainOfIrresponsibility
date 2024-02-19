@@ -1,25 +1,18 @@
-﻿using ChainOfIrresponsibility;
-using ChainOfIrresponsibility.Abstractions;
-using Demo.Chain;
+﻿using Demo.Chain;
 using Microsoft.Extensions.Hosting;
 
 namespace Demo
 {
     public class Worker : BackgroundService
     {
-        private readonly IChain<RandomRequest> _anotherChain;
-        public Worker(IChain<RandomRequest> anotherChain)
+        private readonly IChain _chain;
+        public Worker(IChain chain)
         {
-            _anotherChain = anotherChain;
+            _chain = chain;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            RandomRequest request = new RandomRequest();
-            //ChainBuilder<RandomRequest> builder = ChainBuilder.For<RandomRequest>()
-            //                                                  .AddSuccessor<RandomSuccessor>();
-            //var chain = builder.BuildChain();
-            //await chain.RunAsync(request, stoppingToken);
-            await _anotherChain.RunAsync(request);
+            await _chain.ExecuteAsync(new RandomRequest(), stoppingToken);
         }
     }
 }

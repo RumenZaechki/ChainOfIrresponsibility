@@ -1,5 +1,6 @@
-﻿using ChainOfIrresponsibility;
+﻿using ChainOfIrresponsibility.Configuration.Extensions;
 using Demo.Chain;
+using Demo.Chain2;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -17,9 +18,17 @@ namespace Demo
                 .ConfigureServices((hostContext, services) =>
                 {
                     services
-                            .IncludeChain<RandomRequest>()
-                            .AddSuccessor<RandomSuccessor>()
-                            .AddSuccessor<AnotherRandomSuccessor>();
+                            .AddChain<IChain>()
+                            .WithLink<RandomSuccessor>()
+                            .WithLink<AnotherRandomSuccessor>()
+                            .WithLink<YetAnotherRandomSuccessor>();
+
+                    services
+                            .AddChain<IChain2>()
+                            .WithLink<RandomMiddleware>()
+                            .WithLink<RandomMiddleware2>()
+                            .WithLink<RandomMiddleware3>();
+
                     services.AddHostedService<Worker>();
                 });
     }

@@ -1,12 +1,18 @@
-﻿using ChainOfIrresponsibility.Abstractions;
-
-namespace ChainOfIrresponsibility.Tests.TestChain
+﻿namespace ChainOfIrresponsibility.Tests.TestChain
 {
-    public class TestSuccessor : ISuccessor<TestRequest>
+    public class TestSuccessor : IChain
     {
-        public async Task HandleAsync(TestRequest request, CancellationToken token = default)
+        private readonly IChain _next;
+        public TestSuccessor(IChain next)
+        {
+            _next = next;
+        }
+
+        public IChain Next => _next;
+        public async Task HandleAsync(TestRequest request, CancellationToken token)
         {
             request.Logs.Add("logging from TestSuccessor");
+            await _next.HandleAsync(request, token);
         }
     }
 }

@@ -1,32 +1,47 @@
 ﻿using ChainOfIrresponsibility.Abstractions;
+using ChainOfIrresponsibility.Configuration.Extensions;
 using ChainOfIrresponsibility.Tests.TestChain;
 using FluentAssertions;
+using FluentAssertions.Common;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ChainOfIrresponsibility.Tests
 {
     public class ServiceCollectionTests
     {
-        [Fact]
-        public void IncludeChain_Should_Add_Correct_Services()
+        private readonly IServiceCollection _services;
+        public ServiceCollectionTests()
         {
-            IServiceCollection services = new ServiceCollection();
+            _services = new ServiceCollection();
 
-            services.IncludeChain<TestRequest>()
-                    .AddSuccessor<TestSuccessor>()
-                    .AddSuccessor<AnotherTestSuccessor>();
+            _services
+                .AddChain<IChain>()
+                .WithLink<TestSuccessor>()
+                .WithLink<AnotherTestSuccessor>();
+        }
 
-            services.Should()
-                    .ContainSingle(d => d.ServiceType == typeof(IChain<TestRequest>));
+        [Fact]
+        public void AddChain_Should_Add_Correct_Services()
+        {
+            _services
+                .Should()
+                .Contain(d => d.ServiceType == typeof(IChain));
+        }
 
-            services.Where(d => d.ServiceType.IsAssignableTo(typeof(ISuccessor<TestRequest>)))
-                    .Should()
-                    .HaveCount(2)
-                    .And
-                    .OnlyContain(d => d.Lifetime == ServiceLifetime.Transient);
+        [Fact]
+        public void ChainBuilder_Should_Be_Added_To_Services()
+        {
+            _services
+                .Should()
+                .Contain(serviceDescriptor => serviceDescriptor.ServiceType == typeof(IChainBuilder<IChain>));
+        }
 
-            services.Should().ContainSingle(d => d.ImplementationType == typeof(TestSuccessor));
-            services.Should().ContainSingle(d => d.ImplementationType == typeof(AnotherTestSuccessor));
+        [Fact]
+        public void Chain_Should_Be_Constructed_Properly()
+        {
+            IChain chain = _services.BuildServiceProvider().GetRequiredService<IChain>();
+            chain.Should().BeOfType<TestSuccessor>();
+            chain.As<TestSuccessor>().Next.Should().BeOfType<AnotherTestSuccessor>();
         }
     }
 }
