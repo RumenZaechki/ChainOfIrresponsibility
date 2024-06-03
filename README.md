@@ -115,7 +115,7 @@ if you're instantiating the chain manually, you can provide an expression to the
 ```c#
 IMyOtherDependency dep = new MyOtherDependency();
 
-IMyChain chain = new ResponsibleChainBuilder<IMyChain>()
+IMyChain chain = new ChainBuilder<IMyChain>()
     .WithLink<MyFirstLink>(nextLink => new MyFirstLink(nextLink, dep))
     .WithLink<MySecondLink>()
     .WithLink<DefaultLink>()
