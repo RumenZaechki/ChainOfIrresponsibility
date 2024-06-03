@@ -41,7 +41,7 @@ public void ConfigureServices(IServiceCollection services)
 
 ## Setup Chain on Demand Without Dependency Injection Support
 If you don't have access to a service collection or want to manually construct your chain, you can 
-do so using the `ResponsibleChainBuilder` class:
+do so using the `ChainBuilder` class:
 
 ```c#
 IChain chain = new ChainBuilder<IChain>()
@@ -78,7 +78,7 @@ public class MyFirstLink : IChain
 }
 ```
 
-note that the link's constructor takes a reference to the next link in the chain. The ResponsibleChain 
+note that the link's constructor takes a reference to the next link in the chain. The Chain 
 framework will handle instantiating this class with the correct `nextLink` reference passed in.
 
 ### Handling Dependencies
